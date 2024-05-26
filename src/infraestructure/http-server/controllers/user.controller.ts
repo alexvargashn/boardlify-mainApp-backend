@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Post } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UserUseCases } from "src/core/application/services/user.usecases";
 import { AppResponse } from "../model/app.response";
@@ -11,15 +11,22 @@ export class UserController {
         private user: UserUseCases
     ) { }
 
-    @Get('')
-    @ApiResponse({ status: 201, description: 'User was created', type: String })
-    async getUsers(): Promise<AppResponse> {
-        const users = await this.user.getUsers();
-        console.log(users);
+    @Post()
+    async create(): Promise<AppResponse> {
         return {
             status: 200,
             message: 'All ok',
-            data: users
+            data: 'Done'
+        }
+    }
+
+    @Get()
+    @ApiResponse({ status: 201, description: 'User was created', type: String })
+    async getUsers(): Promise<AppResponse> {
+        return {
+            status: 200,
+            message: 'All ok',
+            data: await this.user.getUsers()
         };
     }
 
