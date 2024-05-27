@@ -20,7 +20,7 @@ import { TransactionProvider } from './providers/transaction.provider';
                     password: db.password,
                     database: db.name,
                     entities: [UserEntity],
-                    synchronize: false,
+                    synchronize: true,
                     logging: ['query']
                 }
             },
