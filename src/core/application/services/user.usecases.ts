@@ -10,7 +10,8 @@ export class UserUseCases {
     ) {}
 
     create(createUserDto: CreateUserDto) {
-        
+        console.log(createUserDto)
+        this.user.create(createUserDto);
     }
 
     getUsers() {

@@ -9,7 +9,7 @@ export class UserService {
     ) {}
 
     create(createUser: CreateUserDto) {
-        
+        return this.user.save(createUser);
     }
 
     getUsers() {

@@ -19,7 +19,9 @@ import { TransactionProvider } from './providers/transaction.provider';
                     username: db.user,
                     password: db.password,
                     database: db.name,
-                    entities: [UserEntity],
+                    entities: [
+                        UserEntity
+                    ],
                     synchronize: true,
                     logging: ['query']
                 }

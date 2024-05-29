@@ -1,27 +1,31 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
+import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { CreateUserCommand } from "src/core/application/commands/impl/create-user.command";
 import { UserUseCases } from "src/core/application/services/user.usecases";
 import { AppResponse } from "../model/app.response";
-import { CreateUserDto } from "../model/dto/create-user.dto";
+import { CreateUserRequest } from "../model/request/create-user.request";
 
 @Controller('/user')
 @ApiTags('User')
 export class UserController {
 
     constructor(
+        private command: CommandBus,
+        private query: QueryBus,
         private user: UserUseCases
     ) { }
 
     //TODO: Try to implement a CQRS form to this method
     @Post()
     async create(
-        @Body() createUser: CreateUserDto
+        @Body() createUser: CreateUserRequest
     ): Promise<AppResponse> {
-        const userCreated = this.user.create(createUser);
+        const userCreated = await this.command.execute( new CreateUserCommand(createUser));
         return {
             status: 200,
             message: 'All ok',
-            data: 'Done'
+            data: userCreated
         }
     }
 

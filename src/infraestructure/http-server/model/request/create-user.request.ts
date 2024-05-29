@@ -1,8 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsString, IsStrongPassword, MinLength } from "class-validator";
+import { CreateUserDto } from "src/core/shared/dto/create-user.dto";
 
 
-export class CreateUserDto implements CreateUserDto {
+export class CreateUserRequest implements CreateUserDto {
 
     @ApiProperty({
         description: 'A real name for a user: <First Name> <Last Name>',
