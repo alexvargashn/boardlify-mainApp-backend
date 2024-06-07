@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './user/user.module';
-import { MongooseModule } from '@nestjs/mongoose';
+import { CqrsModule } from '@nestjs/cqrs';
+import { CoreModule } from './core/core.module';
+import { HttpServerModule } from './infraestructure/http-server/http-server.module';
+import { InfraestructureModule } from './infraestructure/infraestructure.module';
+import { SharedModule } from './infraestructure/shared/shared.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://admin:1234@localhost:27017/boardlifyDB?authSource=admin'),
-    UserModule,
+    SharedModule,
+    CoreModule,
+    HttpServerModule,
+    InfraestructureModule,
+    CqrsModule
   ],
   controllers: [],
   providers: [],
