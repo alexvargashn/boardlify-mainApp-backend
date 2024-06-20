@@ -1,7 +1,9 @@
-export class User {
+
+
+export interface UserCreatedDto {
 
     id?: string;
-    
+
     name: string;
 
     username: string;
