@@ -25,7 +25,11 @@ export class UserService {
         return this.user.findAll();;
     }
 
+    getUsersCount() {
+        return this.user.count();
+    }
+
     async getUsersSlice(limit: number, offset: number) {
-        return this.user.fin
+        return this.user.findBySlice(limit, offset);
     }
 }

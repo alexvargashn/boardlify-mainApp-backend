@@ -5,6 +5,7 @@ import { EventBusPublisherService } from 'src/infraestructure/adapters/eventbus/
 import { PersistenceModule } from 'src/infraestructure/persistence/persistence.module';
 import { CreateUserHanlder } from './application/commands/handlers/create-user.handler';
 import { UserCreatedHandler } from './application/events/handlers/UserCreatedHandler';
+import { UsersQueryHandler } from './application/queries/handlers/users.query.handler';
 import { UserUseCases } from './application/services/user.usecases';
 import { EventBusPublisher } from './domain/ports/inbound/event-bus-publisher';
 import { UserRepository } from './domain/ports/outbound/repositories/user.repository';
@@ -15,6 +16,7 @@ export const EVENTBUS = 'EVENTBUS';
 const providers = [
     UserUseCases,
     CreateUserHanlder,
+    UsersQueryHandler,
     UserCreatedHandler,
     EventBusPublisherService
 ]

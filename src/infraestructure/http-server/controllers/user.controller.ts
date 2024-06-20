@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Query, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreateUserCommand } from "src/core/application/commands/impl/create-user.command";
+import { UsersQuery } from "src/core/application/queries/impl/users.query";
 import { UserUseCases } from "src/core/application/services/user.usecases";
 import { UserCreatedDto } from "src/core/shared/dto/user-created.dto";
 import { GlobalExcpetionFilter } from "../exception-filters/gloal-exception.filter";
@@ -33,7 +34,7 @@ export class UserController {
         @Query('page') page: number,
         @Query('size') size: number
     ) {
-        return this.query.execute()
+        return this.query.execute(new UsersQuery(page, size));
     }
 
 }

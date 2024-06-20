@@ -3,6 +3,7 @@ import { User } from "src/core/domain/model/entities/user";
 import { UserService } from "src/core/domain/services/user.service";
 import { CreateUserDto } from "src/core/shared/dto/create-user.dto";
 import { UserCreatedDto } from "src/core/shared/dto/user-created.dto";
+import { Paginated } from "../utils/Paginated";
 
 export interface GetUsersRequest {
     page: number;
@@ -28,9 +29,17 @@ export class UserUseCases {
         return this.user.create(createUserDto);
     }
 
-    getUsers(getUsers: GetUsersRequest) {
-        const offset = getUsers.page - 1;
-        const users = await this.user
+    async getUsers(getUsers: GetUsersRequest) {
+        const offset = getUsers.page - 1 // define offset for query
+        const users = await this.user.getUsersSlice(getUsers.size, offset) // get orders slice
+        const totalRecords = await this.user.getUsersCount(); // data count
+        
+        // creating a paginated
+        return Paginated.create({
+            ...getUsers,
+            count: totalRecords,
+            data: users,
+        })
     }
 
 }

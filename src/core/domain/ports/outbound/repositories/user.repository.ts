@@ -7,4 +7,7 @@ export interface UserRepository {
     findBySlice(limit: number, offset: number): Promise<User[]>;
 
     save(user: User): Promise<User>;
+
+    count(): Promise<number>;
+    
 }
