@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { CreateUserCommand } from "src/core/application/commands/impl/create-user.command";
-import { UsersQuery } from "src/core/application/queries/impl/users.query";
-import { UserUseCases } from "src/core/application/services/user.usecases";
-import { UserCreatedDto } from "src/core/shared/dto/user-created.dto";
+import { CreateUserCommand } from "src/modules/user/application/commands/impl/create-user.command";
+import { UsersQuery } from "src/modules/user/application/queries/impl/users.query";
+import { UserUseCases } from "src/modules/user/application/services/user.usecases";
+import { UserCreatedDto } from "src/modules/user/shared/dto/user-created.dto";
 import { GlobalExcpetionFilter } from "../exception-filters/gloal-exception.filter";
 import { CreateUserRequest } from "../model/request/create-user.request";
 

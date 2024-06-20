@@ -1,4 +1,5 @@
-import { User } from "src/core/domain/model/entities/user";
+import { User } from "../../../model/entities/user";
+
 
 export interface UserRepository {
 

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { EventBus } from "@nestjs/cqrs";
-import { EventBusPublisher } from "src/core/domain/ports/inbound/event-bus-publisher";
-import { EventBase } from "src/core/shared/domain-event";
+import { EventBusPublisher } from "src/modules/user/domain/ports/inbound/event-bus-publisher";
+import { EventBase } from "src/modules/user/shared/domain-event";
 
 @Injectable()
 export class EventBusPublisherService implements EventBusPublisher {

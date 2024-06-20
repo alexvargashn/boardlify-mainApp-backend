@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsString, IsStrongPassword, MinLength } from "class-validator";
-import { CreateUserDto } from "src/core/shared/dto/create-user.dto";
+import { CreateUserDto } from "src/modules/user/shared/dto/create-user.dto";
 
 
 export class CreateUserRequest implements CreateUserDto {

@@ -1,4 +1,5 @@
-import { CreateUserDto } from "src/core/shared/dto/create-user.dto";
+import { CreateUserDto } from "src/modules/user/shared/dto/create-user.dto";
+
 
 
 export class CreateUserCommand {

@@ -1,4 +1,4 @@
-import { CreateUserDto } from "src/core/shared/dto/create-user.dto";
+import { CreateUserDto } from "../../shared/dto/create-user.dto";
 import { UserCreated } from "../events/user-created";
 import { User } from "../model/entities/user";
 import { EventBusPublisher } from "../ports/inbound/event-bus-publisher";

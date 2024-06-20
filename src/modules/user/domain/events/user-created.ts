@@ -1,5 +1,6 @@
-import { DomainEvent } from "src/core/shared/domain-event";
+import { DomainEvent } from "../../shared/domain-event";
 import { User } from "../model/entities/user";
+
 
 
 export class UserCreated extends DomainEvent<User> {

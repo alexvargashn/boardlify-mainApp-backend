@@ -1,4 +1,5 @@
-import { EventBase } from "src/core/shared/domain-event";
+import { EventBase } from "src/modules/user/shared/domain-event";
+
 
 
 export interface EventBusPublisher {

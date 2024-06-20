@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
-import { User } from "src/core/domain/model/entities/user";
-import { UserService } from "src/core/domain/services/user.service";
-import { CreateUserDto } from "src/core/shared/dto/create-user.dto";
-import { UserCreatedDto } from "src/core/shared/dto/user-created.dto";
+import { UserService } from "src/modules/user/domain/services/user.service";
+import { User } from "../../domain/model/entities/user";
+import { CreateUserDto } from "../../shared/dto/create-user.dto";
+import { UserCreatedDto } from "../../shared/dto/user-created.dto";
 import { Paginated } from "../utils/Paginated";
 
 export interface GetUsersRequest {
     page: number;
-    size: number;   
+    size: number;
 }
 
 export interface GetUsersResponse {
@@ -15,7 +15,7 @@ export interface GetUsersResponse {
     totalRecords: number;
     pageSize: number;
     totalPages: number;
-    currentPage: number;  
+    currentPage: number;
 }
 
 @Injectable()
