@@ -12,6 +12,14 @@ export class PostgresUserRepository implements UserRepository {
         @InjectRepository(UserEntity) private repository: Repository<UserEntity>
     ) {}
 
+    findBySlice(limit: number, offset: number): Promise<User[]> {
+        return this.repository
+            .createQueryBuilder('user')
+            .take(limit)
+            .skip(offset)
+            .getMany();
+    }
+
     async findAll(): Promise<User[]> {
         return this.repository.find();
     }
