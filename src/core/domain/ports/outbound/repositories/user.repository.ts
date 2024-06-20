@@ -4,5 +4,7 @@ export interface UserRepository {
 
     findAll(): Promise<User[]>;
 
+    findBySlice(limit: number, offset: number): Promise<User[]>;
+
     save(user: User): Promise<User>;
 }

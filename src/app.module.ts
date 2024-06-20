@@ -10,8 +10,8 @@ import { SharedModule } from './infraestructure/shared/shared.module';
     SharedModule,
     CoreModule,
     HttpServerModule,
+    CqrsModule,
     InfraestructureModule,
-    CqrsModule
   ],
   controllers: [],
   providers: [],
