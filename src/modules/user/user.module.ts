@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { AdaptersModule, USER_REPOSITORY } from 'src/infraestructure/adapters/adapters.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventBusPublisherService } from 'src/infraestructure/adapters/eventbus/event-bus-publisher';
 import { PersistenceModule } from 'src/infraestructure/persistence/persistence.module';
 import { CreateUserHanlder } from './application/commands/handlers/create-user.handler';
@@ -10,6 +10,10 @@ import { UserUseCases } from './application/services/user.usecases';
 import { EventBusPublisher } from './domain/ports/inbound/event-bus-publisher';
 import { UserRepository } from './domain/ports/outbound/repositories/user.repository';
 import { UserService } from './domain/services/user.service';
+import { AdaptersModule, USER_REPOSITORY } from './infraestructure/adapters/adapters.module';
+import { UserController } from './infraestructure/controllers/user.controller';
+import { UserEntity } from './infraestructure/model/entities/user';
+
 
 export const EVENTBUS = 'EVENTBUS';
 
@@ -24,8 +28,11 @@ const providers = [
 @Module({
     imports: [
         PersistenceModule,
+        CqrsModule,
+        TypeOrmModule.forFeature([
+            UserEntity
+        ]),
         AdaptersModule,
-        CqrsModule
     ],
     providers: [
         ...providers,
@@ -57,6 +64,9 @@ const providers = [
         CqrsModule,
         AdaptersModule,
         ...providers
+    ],
+    controllers: [
+        UserController
     ]
 })
 export class UserModule {}

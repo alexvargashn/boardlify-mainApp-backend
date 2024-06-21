@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PostgresUserRepository } from '../persistence/boardlify-postgres-db/repositories/postgres-user.repository';
+import { PostgresUserRepository } from '../../modules/user/infraestructure/adapters/repositories/postgres-user.repository';
 import { PersistenceModule } from '../persistence/persistence.module';
 import { InMemoryEventBus } from './eventbus/in-memory-event-bus.service';
 

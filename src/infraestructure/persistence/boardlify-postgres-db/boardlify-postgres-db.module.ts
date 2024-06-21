@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { DatabaseConfig } from 'src/infraestructure/shared/config/database.config';
-import { UserEntity } from './entities/user';
 import { TransactionProvider } from './providers/transaction.provider';
 
 @Module({
@@ -19,9 +18,7 @@ import { TransactionProvider } from './providers/transaction.provider';
                     username: db.user,
                     password: db.password,
                     database: db.name,
-                    entities: [
-                        UserEntity
-                    ],
+                    autoLoadEntities: true,
                     synchronize: true,
                     logging: ['query']
                 }

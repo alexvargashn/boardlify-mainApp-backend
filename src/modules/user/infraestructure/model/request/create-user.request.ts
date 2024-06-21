@@ -22,7 +22,7 @@ export class CreateUserRequest implements CreateUserDto {
     @MinLength(3)
     username: string;
 
-    @ApiProperty({ 
+    @ApiProperty({
         description: 'An email valid string',
         nullable: false
     })

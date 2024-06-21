@@ -1,12 +1,13 @@
 import { Body, Controller, Get, Post, Query, UseFilters } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ApiInternalServerErrorResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { GlobalExcpetionFilter } from "src/infraestructure/shared/exception-filters/gloal-exception.filter";
 import { CreateUserCommand } from "src/modules/user/application/commands/impl/create-user.command";
 import { UsersQuery } from "src/modules/user/application/queries/impl/users.query";
 import { UserUseCases } from "src/modules/user/application/services/user.usecases";
 import { UserCreatedDto } from "src/modules/user/shared/dto/user-created.dto";
-import { GlobalExcpetionFilter } from "../exception-filters/gloal-exception.filter";
 import { CreateUserRequest } from "../model/request/create-user.request";
+
 
 @Controller('/user')
 @UseFilters(GlobalExcpetionFilter)

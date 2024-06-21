@@ -4,7 +4,7 @@ import { User } from "../model/entities/user";
 
 
 export class UserCreated extends DomainEvent<User> {
-    static EVENT_NAME = 'boardlify-main-app-backend.user-created';
+    static readonly EVENT_NAME = 'boardlify-main-app-backend.user-created';
 
     constructor(user: User) {
         super(user);

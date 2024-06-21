@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+
 import { User } from "src/modules/user/domain/model/entities/user";
 import { UserRepository } from "src/modules/user/domain/ports/outbound/repositories/user.repository";
-import { Repository } from "typeorm";
-import { UserEntity } from "../entities/user";
+import { UserEntity } from "../../model/entities/user";
 
 @Injectable()
 export class PostgresUserRepository implements UserRepository {
@@ -12,11 +13,11 @@ export class PostgresUserRepository implements UserRepository {
         @InjectRepository(UserEntity) private repository: Repository<UserEntity>
     ) {}
 
-    count(): Promise<number> {
+    async count(): Promise<number> {
         return this.repository.count();
     }
 
-    findBySlice(limit: number, offset: number): Promise<User[]> {
+    async findBySlice(limit: number, offset: number): Promise<User[]> {
         return this.repository
             .createQueryBuilder('user')
             .take(limit)
