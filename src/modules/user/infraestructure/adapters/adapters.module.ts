@@ -7,7 +7,6 @@ export const USER_REPOSITORY = 'USER_REPOSITORY';
 
 const providers = [
     PostgresUserRepository,
-    //InMemoryEventBus,
     {
         provide: USER_REPOSITORY,
         useExisting: PostgresUserRepository

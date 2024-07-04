@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { DatabaseConfig } from 'src/infraestructure/shared/config/database.config';
 import { TransactionProvider } from './providers/transaction.provider';
+import { PrismaService } from './services/prisma.service';
 
 @Module({
     imports: [
@@ -27,8 +28,12 @@ import { TransactionProvider } from './providers/transaction.provider';
         })
     ],
     providers: [
+        PrismaService,
         TransactionProvider
     ],
-    exports: [TransactionProvider]
+    exports: [
+        PrismaService,
+        TransactionProvider
+    ]
 })
 export class BoardlifyPostgresDbModule { }
