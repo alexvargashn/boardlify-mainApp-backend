@@ -32,6 +32,10 @@ export class UserService {
         return this.user.count();
     }
 
+    async getUserByTerm(term: string) {
+        return this.user.findByTerm(term);
+    }
+
     async getUsersSlice(limit: number, offset: number) {
         return this.user.findBySlice(limit, offset);
     }

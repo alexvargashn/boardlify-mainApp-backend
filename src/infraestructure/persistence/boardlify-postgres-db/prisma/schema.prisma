@@ -10,7 +10,7 @@ datasource db {
 model user {
   user_id  String @id @default(cuid()) @db.VarChar
   name     String @db.VarChar
-  username String @db.VarChar
-  email    String @db.VarChar
+  username String @db.VarChar @unique
+  email    String @db.VarChar @unique
   password String @db.VarChar
 }

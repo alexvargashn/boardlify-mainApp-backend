@@ -1,25 +1,26 @@
 import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import * as intformat from "biguint-format";
+import { isEmail } from "class-validator";
 import * as FlakeId from "flake-idgen";
-import { Repository } from "typeorm";
-const flakeIdGen = new FlakeId();
 
 import { PrismaService } from "src/infraestructure/persistence/boardlify-postgres-db/services/prisma.service";
+import { generateSnowflakeId, isSnowflakeId } from "src/infraestructure/shared/util/helpers/snowflake.helper";
 import { User } from "src/modules/user/domain/model/entities/user";
 import { UserRepository } from "src/modules/user/domain/ports/outbound/repositories/user.repository";
-import { UserEntity } from "../../model/entities/user";
 
+const flakeIdGen = new FlakeId(); 
 @Injectable()
 export class PostgresUserRepository implements UserRepository {
 
     constructor(
-        @InjectRepository(UserEntity) private repository: Repository<UserEntity>,
         private readonly prisma: PrismaService
-    ) {}
+    ) { }
 
     async count(): Promise<number> {
-        return this.repository.count();
+        return this.prisma.user.count();
+    }
+
+    async findAll(): Promise<User[]> {
+        return this.prisma.user.findMany();
     }
 
     async findBySlice(limit: number, offset: number): Promise<User[]> {
@@ -29,17 +30,36 @@ export class PostgresUserRepository implements UserRepository {
         });
     }
 
-    async findAll(): Promise<User[]> {
-        return this.prisma.user.findMany();
+    async findByTerm(term: string): Promise<User> {
+        if(isSnowflakeId(term)) {
+            return this.prisma.user.findUnique({
+                where: { user_id: term }
+            })
+        }
+
+        if(isEmail(term)) {
+            return this.prisma.user.findFirst({
+                where: { email: term }
+            });
+        }
+
+        return this.prisma.user.findFirstOrThrow({
+            where:{
+                OR:[
+                    { username: term },
+                    { name: term }
+                ]
+            }
+        })
     }
 
     async save(user: User): Promise<User> {
         return this.prisma.user.create({
             data: {
-                user_id: intformat(flakeIdGen.next(), 'dec'),
+                user_id: generateSnowflakeId(),
                 ...user
-            } })
+            }
+        })
     }
-
 
 }
