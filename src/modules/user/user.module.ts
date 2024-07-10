@@ -3,7 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { EventBusPublisherService } from 'src/infraestructure/adapters/eventbus/event-bus-publisher';
 import { CreateUserHanlder } from './application/commands/handlers/create-user.handler';
 import { UserCreatedHandler } from './application/events/handlers/UserCreatedHandler';
-import { UsersQueryHandler } from './application/queries/handlers/users.query.handler';
+import { UserQueryByTermHandler, UsersQueryHandler } from './application/queries/handlers/users.query.handler';
 import { UserUseCases } from './application/services/user.usecases';
 import { EventBusPublisher } from './domain/ports/inbound/event-bus-publisher';
 import { UserRepository } from './domain/ports/outbound/repositories/user.repository';
@@ -18,6 +18,7 @@ const providers = [
     UserUseCases,
     CreateUserHanlder,
     UsersQueryHandler,
+    UserQueryByTermHandler,
     UserCreatedHandler,
     EventBusPublisherService
 ]

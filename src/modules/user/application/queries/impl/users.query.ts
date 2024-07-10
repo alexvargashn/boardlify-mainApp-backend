@@ -7,3 +7,9 @@ export class UsersQuery {
     ) {}
     
 }
+
+export class UserQueryByTerm {
+    constructor(
+        public readonly term: string
+    ) {}
+}

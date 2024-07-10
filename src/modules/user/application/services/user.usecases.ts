@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { UserService } from "src/modules/user/domain/services/user.service";
-import { User } from "../../domain/model/entities/user";
+import { User } from "../../domain/model/entities/user.entity";
 import { CreateUserDto } from "../../shared/dto/create-user.dto";
 import { UserCreatedDto } from "../../shared/dto/user-created.dto";
 import { Paginated } from "../utils/Paginated";
@@ -8,6 +8,10 @@ import { Paginated } from "../utils/Paginated";
 export interface GetUsersRequest {
     page: number;
     size: number;
+}
+
+export interface GetUserByTerm {
+    term: string;
 }
 
 export interface GetUsersResponse {
@@ -40,6 +44,10 @@ export class UserUseCases {
             count: totalRecords,
             data: users,
         })
+    }
+
+    async getUserByTerm(request: GetUserByTerm) {
+        return this.user.getUserByTerm(request.term);
     }
 
 }

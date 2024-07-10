@@ -1,10 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsString, IsStrongPassword, MinLength } from "class-validator";
-import { CreateUserDto } from "src/modules/user/shared/dto/create-user.dto";
+import { CreateUserDto, Person } from "src/modules/user/shared/dto/create-user.dto";
 
 
 export class CreateUserRequest implements CreateUserDto {
-
+    
     @ApiProperty({
         description: 'A real name for a user: <First Name> <Last Name>',
         nullable: false,
@@ -13,7 +13,7 @@ export class CreateUserRequest implements CreateUserDto {
     @IsString()
     @MinLength(3)
     name: string;
-
+    
     @ApiProperty({
         description: 'A "nickname" for user',
         nullable: false
@@ -21,7 +21,7 @@ export class CreateUserRequest implements CreateUserDto {
     @IsString()
     @MinLength(3)
     username: string;
-
+    
     @ApiProperty({
         description: 'An email valid string',
         nullable: false
@@ -29,7 +29,7 @@ export class CreateUserRequest implements CreateUserDto {
     @IsString()
     @IsEmail()
     email: string;
-
+    
     @ApiProperty({
         description: 'A valid password string that meets the rules',
         nullable: false
@@ -43,4 +43,18 @@ export class CreateUserRequest implements CreateUserDto {
         minNumbers: 1
     })
     password: string;
+    
+    person: PersonRequest;
+}
+
+class PersonRequest implements Person {
+    
+    @IsString()
+    firstName: string;
+
+    @IsString()
+    lastName: string;
+    
+    @IsString()
+    genre: string;
 }

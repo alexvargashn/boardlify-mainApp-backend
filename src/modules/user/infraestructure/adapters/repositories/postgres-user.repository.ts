@@ -1,13 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { isEmail } from "class-validator";
-import * as FlakeId from "flake-idgen";
 
 import { PrismaService } from "src/infraestructure/persistence/boardlify-postgres-db/services/prisma.service";
-import { generateSnowflakeId, isSnowflakeId } from "src/infraestructure/shared/util/helpers/snowflake.helper";
-import { User } from "src/modules/user/domain/model/entities/user";
+import { isSnowflakeId } from "src/infraestructure/shared/util/helpers/snowflake.helper";
+import { User } from "src/modules/user/domain/model/entities/user.entity";
 import { UserRepository } from "src/modules/user/domain/ports/outbound/repositories/user.repository";
+import { CreateUserDto } from "src/modules/user/shared/dto/create-user.dto";
 
-const flakeIdGen = new FlakeId(); 
 @Injectable()
 export class PostgresUserRepository implements UserRepository {
 
@@ -31,21 +30,22 @@ export class PostgresUserRepository implements UserRepository {
     }
 
     async findByTerm(term: string): Promise<User> {
-        if(isSnowflakeId(term)) {
+        if (isSnowflakeId(term)) {
+            console.log("Si es")
             return this.prisma.user.findUnique({
-                where: { user_id: term }
+                where: { userId: term }
             })
         }
 
-        if(isEmail(term)) {
+        if (isEmail(term)) {
             return this.prisma.user.findFirst({
                 where: { email: term }
             });
         }
 
         return this.prisma.user.findFirstOrThrow({
-            where:{
-                OR:[
+            where: {
+                OR: [
                     { username: term },
                     { name: term }
                 ]
@@ -53,13 +53,25 @@ export class PostgresUserRepository implements UserRepository {
         })
     }
 
-    async save(user: User): Promise<User> {
-        return this.prisma.user.create({
-            data: {
-                user_id: generateSnowflakeId(),
-                ...user
-            }
-        })
+    async save(user: CreateUserDto): Promise<User> {
+        return this.prisma.$transaction( async(prisma) => {
+            
+            const person = await prisma.person.create({
+                data: user.person
+            });
+
+            return await prisma.user.create({
+                data: {
+                    ...user,
+                    person: {
+                        connect: { personId: person.personId }
+                    }
+                },
+                include: {
+                    person: true
+                }
+            });
+        });
     }
 
 }

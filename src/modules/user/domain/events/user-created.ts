@@ -1,5 +1,5 @@
 import { DomainEvent } from "../../shared/domain-event";
-import { User } from "../model/entities/user";
+import { User } from "../model/entities/user.entity";
 
 
 

@@ -1,3 +1,5 @@
+import { Person } from "./person.entity";
+
 export class User {
 
     id?: string;
@@ -9,4 +11,8 @@ export class User {
     email: string;
 
     password: string;
+
+    personId?: string;
+
+    person?: Person;
 }

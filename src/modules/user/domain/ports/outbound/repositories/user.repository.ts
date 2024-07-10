@@ -1,4 +1,5 @@
-import { User } from "../../../model/entities/user";
+import { CreateUserDto } from "src/modules/user/shared/dto/create-user.dto";
+import { User } from "../../../model/entities/user.entity";
 
 
 export interface UserRepository {
@@ -9,7 +10,7 @@ export interface UserRepository {
 
     findByTerm(term: string): Promise<User>;
 
-    save(user: User): Promise<User>;
+    save(user: CreateUserDto): Promise<User>;
 
     count(): Promise<number>;
     

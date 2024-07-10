@@ -7,10 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  user_id  String @id @default(cuid()) @db.VarChar
+model User {
+  userId  String @id @default(cuid()) @map("user_id")
   name     String @db.VarChar
   username String @db.VarChar @unique
   email    String @db.VarChar @unique
   password String @db.VarChar
+  person Person @relation( fields: [personId], references: [personId])
+  personId String @unique
+
+  @@map("user")
+}
+
+model Person {
+  personId String @id @default(uuid()) @map("person_id")
+  firstName String @db.VarChar() @map("first_name")
+  lastName String @db.VarChar() @map("last_name")
+  genre String @db.Char()
+  user User?
+  @@map("person")
 }
